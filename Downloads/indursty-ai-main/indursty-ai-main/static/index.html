@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent for Smart Manufacturing Defect Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Chart.js CDN for interactive charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Phosphor Icons for modern slick icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body>
+    <div class="dashboard">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-icon">AI</div>
+                <div class="logo-title">
+                    <h1>Industry.AI</h1>
+                    <p>Manufacturing Quality</p>
+                </div>
+            </div>
+
+            <nav class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab('dataset-tab', this)">
+                    <i class="ph ph-chart-pie-slice"></i>
+                    Analytics Hub
+                </button>
+                <button class="tab-btn" onclick="switchTab('models-tab', this)">
+                    <i class="ph ph-cpu"></i>
+                    AI Models
+                </button>
+                <button class="tab-btn" onclick="switchTab('inspection-tab', this)">
+                    <i class="ph ph-scan"></i>
+                    Live Inspection
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <div class="status-dot"></div>
+                    <span>System Online</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-area">
+
+            <header class="topbar">
+                <h2>Dashboard Overview</h2>
+                <div class="user-profile">
+                    <img style="border-radius:50%; width: 40px;"
+                        src="https://ui-avatars.com/api/?name=Admin+User&background=8a2be2&color=fff" alt="User">
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <!-- TAB 1: DATASET ANALYTICS -->
+                <section id="dataset-tab" class="tab-content active">
+                    <div class="grid-4">
+                        <div class="card premium-card">
+                            <div class="card-icon"><i class="ph ph-database"></i></div>
+                            <div class="card-title">Clean Samples</div>
+                            <div class="stat-value" id="stat-clean">8,584</div>
+                        </div>
+                        <div class="card premium-card warning-card">
+                            <div class="card-icon" style="color:var(--accent-red)"><i class="ph ph-warning"></i></div>
+                            <div class="card-title">Defective</div>
+                            <div class="stat-value" id="stat-def">4,992</div>
+                        </div>
+                        <div class="card premium-card success-card">
+                            <div class="card-icon" style="color:var(--accent-green)"><i class="ph ph-check-circle"></i>
+                            </div>
+                            <div class="card-title">Approved</div>
+                            <div class="stat-value" id="stat-ok">3,592</div>
+                        </div>
+                        <div class="card premium-card info-card">
+                            <div class="card-icon" style="color:var(--primary)"><i class="ph ph-broom"></i></div>
+                            <div class="card-title">File Audit</div>
+                            <div class="stat-value" id="stat-audit">64 Dups</div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3 class="card-title">Dataset Splits</h3>
+                            </div>
+                            <canvas id="splitChart" height="220"></canvas>
+                        </div>
+                        <div class="card table-card">
+                            <div class="card-header">
+                                <h3 class="card-title">AI Pipeline Mapping</h3>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Target Model</th>
+                                        <th>Task Type</th>
+                                        <th>Annotation Format</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>YOLOv11</strong></td>
+                                        <td>Detection</td>
+                                        <td>BBox Contours</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>EfficientNet-B3</strong></td>
+                                        <td>Classification</td>
+                                        <td>2-Class Folders</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ViT Vision</strong></td>
+                                        <td>Classification</td>
+                                        <td>2-Class Folders</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: MODEL MATRIX -->
+                <section id="models-tab" class="tab-content">
+                    <div class="card hero-card" style="margin-bottom: 2rem;">
+                        <h3 class="card-title"><i class="ph ph-rocket-launch"></i> Ensemble Performance</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">
+                            Evaluating the multi-model architecture against a validation set of 1,290 samples.
+                        </p>
+
+                        <div class="table-container" style="margin-top:20px;">
+                            <table id="benchmark-table">
+                                <thead>
+                                    <tr>
+                                        <th>Model</th>
+                                        <th>Role</th>
+                                        <th>Accuracy</th>
+                                        <th>F1-Score</th>
+                                        <th>mAP</th>
+                                        <th>Latency</th>
+                                        <th>Params</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="grid-3">
+                        <div class="card feature-card">
+                            <h4>YOLOv11</h4>
+                            <p>Real-time high-speed defect localization with bounding box coordinates and object
+                                metrics.</p>
+                        </div>
+                        <div class="card feature-card">
+                            <h4>EfficientNet-B3</h4>
+                            <p>Deep feature extraction with precise Grad-CAM heatmaps showing pixel activation maps.</p>
+                        </div>
+                        <div class="card feature-card">
+                            <h4>Vision Transformer</h4>
+                            <p>Self-attention patch rollout demonstrating long-range spatial context mapping across
+                                surfaces.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 3: LIVE INSPECTION -->
+                <section id="inspection-tab" class="tab-content">
+                    <div class="dropzone-modern" id="dropzone" onclick="document.getElementById('fileInput').click()">
+                        <div class="upload-pulse"><i class="ph ph-upload-simple" style="font-size: 3rem;"></i></div>
+                        <h3>Upload Casting Sample</h3>
+                        <p>Drag & drop or click to browse</p>
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;"
+                            onchange="handleFileUpload(this.files[0])">
+                    </div>
+
+                    <div class="sample-picker" id="samplePicker" aria-label="Test samples">
+                        <h3>Verified Test Samples</h3>
+                        <div class="sample-list" id="sampleList"></div>
+                    </div>
+
+                    <!-- Dynamic Loader -->
+                    <div id="loadingOverlay" class="loader-overlay modern-loader">
+                        <div class="spinner-core"></div>
+                        <div class="loader-text pulse-text">Performing AI Analysis...</div>
+                    </div>
+
+                    <!-- Inspection Result Section -->
+                    <div id="resultContainer" style="display: none;" class="result-area">
+                        <div class="verdict-banner">
+                            <div class="verdict-info">
+                                <span>Quality Verdict</span>
+                                <h1 id="consensus-status">DEFECTIVE</h1>
+                            </div>
+                            <div class="verdict-score">
+                                <span>Confidence</span>
+                                <h1 id="consensus-confidence">98.5%</h1>
+                            </div>
+                        </div>
+
+                        <div class="grid-3">
+                            <div class="card inspection-card">
+                                <h4>Defect Localization</h4>
+                                <img id="img-yolo" src="" alt="YOLO Result">
+                                <p class="card-meta" id="yolo-info">Loading...</p>
+                            </div>
+                            <div class="card inspection-card">
+                                <h4>Activation Heatmap</h4>
+                                <img id="img-eff" src="" alt="Grad-CAM">
+                                <p class="card-meta" id="eff-info">Loading...</p>
+                            </div>
+                            <div class="card inspection-card">
+                                <h4>Attention Mapping</h4>
+                                <img id="img-vit" src="" alt="Attention">
+                                <p class="card-meta" id="vit-info">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+
+</html>

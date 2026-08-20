@@ -1,0 +1,25 @@
+{
+    "total_raw_audited": 8648,
+    "total_clean_unique": 8584,
+    "corrupt_removed": 0,
+    "duplicates_removed": 64,
+    "classification_splits": {
+        "train": {
+            "defective": 3494,
+            "ok": 2514
+        },
+        "val": {
+            "defective": 748,
+            "ok": 538
+        },
+        "test": {
+            "defective": 750,
+            "ok": 540
+        }
+    },
+    "yolo_splits": {
+        "train": 6008,
+        "val": 1286,
+        "test": 1290
+    }
+}

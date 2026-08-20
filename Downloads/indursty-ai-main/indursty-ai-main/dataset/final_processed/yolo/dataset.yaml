@@ -1,0 +1,8 @@
+# Smart Manufacturing Casting Defect Detection YOLOv11 Dataset Configuration
+path: c:/Users/Thilak chodagiri/Desktop/Industry AI/dataset/final_processed/yolo
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: defect
